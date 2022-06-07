@@ -146,8 +146,6 @@ impl DeviceIoMut for SerialWrapper<EventFdTrigger, SerialEventsWrapper> {
             self.serial.events().metrics.missed_write_count.inc();
             return;
         }
-        print!("{}", data[0] as char);
-        error!("{}", data[0] as char);
         if let Err(e) = self.serial.write(offset.raw_value() as u8, data[0]) {
             error!("Failed the write to serial: {:?}", e);
             self.serial.events().metrics.error_count.inc();
