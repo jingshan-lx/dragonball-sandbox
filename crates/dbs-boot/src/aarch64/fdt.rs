@@ -14,7 +14,7 @@ use std::fmt::Debug;
 use dbs_arch::gic::its::ItsType::{self, PciMsiIts, PlatformMsiIts};
 use dbs_arch::gic::GICDevice;
 use dbs_arch::{DeviceInfoForFDT, DeviceType};
-
+use log::error;
 use vm_fdt::FdtWriter;
 use vm_memory::GuestMemoryRegion;
 use vm_memory::{Address, Bytes, GuestAddress, GuestMemory};
@@ -57,7 +57,7 @@ pub fn create_fdt<T: DeviceInfoForFDT + Clone + Debug, M: GuestMemory>(
     initrd: &Option<InitrdConfig>,
 ) -> Result<Vec<u8>> {
     let mut fdt = FdtWriter::new()?;
-
+    error!("dxx create_fdt");
     // For an explanation why these nodes were introduced in the blob take a look at
     // https://github.com/torvalds/linux/blob/master/Documentation/devicetree/booting-without-of.txt#L845
     // Look for "Required nodes and properties".

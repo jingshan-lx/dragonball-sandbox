@@ -3,10 +3,10 @@
 
 //! Event notifier to inject device interrupts to virtual machines.
 
+use log::error;
 use std::any::Any;
 use std::io::Error;
 use std::sync::Arc;
-
 use vmm_sys_util::eventfd::EventFd;
 
 use crate::{InterruptIndex, InterruptSourceGroup, InterruptStatusRegister32};
@@ -60,6 +60,7 @@ mod legacy {
 
     impl InterruptNotifier for LegacyNotifier {
         fn notify(&self) -> Result<(), Error> {
+            error!("dxx legacy notify");
             self.intr_status.set_bits(self.status_bits);
             self.intr_group.trigger(0)
         }
@@ -104,6 +105,7 @@ mod msi {
 
     impl InterruptNotifier for MsiNotifier {
         fn notify(&self) -> Result<(), Error> {
+            error!("dxx msi notify");
             self.intr_group.trigger(self.intr_index)
         }
 

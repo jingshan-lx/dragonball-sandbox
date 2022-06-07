@@ -6,12 +6,12 @@
 //! On x86 platforms, legacy interrupts are those managed by the Master PIC, the slave PIC and
 //! IOAPICs.
 
+use super::*;
 use kvm_bindings::KVM_IRQ_ROUTING_IRQCHIP;
 #[cfg(target_arch = "x86_64")]
 use kvm_bindings::{KVM_IRQCHIP_IOAPIC, KVM_IRQCHIP_PIC_MASTER, KVM_IRQCHIP_PIC_SLAVE};
+use log::error;
 use vmm_sys_util::eventfd::EFD_NONBLOCK;
-
-use super::*;
 
 #[cfg(target_arch = "x86_64")]
 /// Maximum number of legacy interrupts supported.
@@ -168,6 +168,7 @@ impl InterruptSourceGroup for LegacyIrq {
         if index != 0 {
             return Err(std::io::Error::from_raw_os_error(libc::EINVAL));
         }
+        error!("dxx legacy irq trigger");
         self.irqfd.write(1)
     }
 
