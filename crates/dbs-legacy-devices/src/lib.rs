@@ -18,7 +18,7 @@ pub use self::i8042::*;
 #[cfg(target_arch = "aarch64")]
 mod rtc_pl031;
 #[cfg(target_arch = "aarch64")]
-pub use self::rtc_pl031::RTC;
+pub use self::rtc_pl031::*;
 
 use vm_superio::Trigger;
 use vmm_sys_util::eventfd::EventFd;
