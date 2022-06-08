@@ -168,7 +168,6 @@ impl InterruptSourceGroup for LegacyIrq {
         if index != 0 {
             return Err(std::io::Error::from_raw_os_error(libc::EINVAL));
         }
-        error!("dxx legacy irq trigger");
         self.irqfd.write(1)
     }
 
